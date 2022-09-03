@@ -71,6 +71,8 @@ class Solution:
            return_ll.insert_at_end(data)
            t1 = t1.next
            t2 = t2.next
+        if carry:
+            return_ll.insert_at_end(carry)
         
         return return_ll
 
