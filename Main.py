@@ -56,33 +56,29 @@ class Solution:
     """
 
     def addTwoNumbers(self, first_list: Optional[LinkedList], second_list: Optional[LinkedList]) -> Optional[LinkedList]:
-        self.num1 = self.convert_ll_to_int(first_list)
-        self.num2 = self.convert_ll_to_int(second_list)
-        num3 = self.num1 + self.num2
-        self.return_ll = LinkedList()
-        self.convert_int_to_ll(
-            num3, max(first_list.length, second_list.length))
-        return self.return_ll
+        self.first_list = first_list
+        self.second_list = second_list
+        self.equalize_ll()
 
-    def convert_ll_to_int(self, linked: Optional[LinkedList]):
-        num = 0
-        if linked.head != None:
-            t = linked.head
-            while t:
-                num = num*10 + t.data
-                t = t.next
-        # print(num)
-        return num
+        t1 = first_list.head
+        t2 = second_list.head
+        return_ll = LinkedList()
+        carry = 0
+        for i in range(first_list.length):
+           sum = t1.data + t2.data + carry
+           data = sum%10
+           carry = sum//10
+           return_ll.insert_at_end(data)
+           t1 = t1.next
+           t2 = t2.next
+        
+        return return_ll
 
-    def convert_int_to_ll(self, num, length):
-        list1 = []
-        while num != 0:
-            list1.append(num % 10)
-            num //= 10
-        list1.reverse()
-        list1 = list1[:length]
-        for i in list1:
-            self.return_ll.insert_at_end(i)
+    def equalize_ll(self):
+        while(self.first_list.length > self.second_list.length):
+            self.second_list.insert_at_end(0)
+        while(self.second_list.length > self.first_list.length):
+            self.first_list.insert_at_end(0)
 
 
 # Do not edit the following code
