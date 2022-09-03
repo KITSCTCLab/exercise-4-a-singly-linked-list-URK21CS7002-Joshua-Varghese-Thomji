@@ -5,6 +5,7 @@ class Node:
     """
     Provide necessary documentation
     """
+
     def __init__(self, data=None, next=None):
         """
         Provide necessary documentation
@@ -17,41 +18,74 @@ class LinkedList:
     """
     Provide necessary documentation
     """
+
     def __init__(self):
         """
         Initialize the head
         """
         self.head = None
+        self.length = 0
 
     def insert_at_end(self, data):
-        """
-        Insert node at end of the list
-        :param data: integer data that will be used to create a node
-        """
-        # Write code here
+        n = Node(data)
+        if self.head != None:
+            t = self.head
+            while t.next != None:
+                t = t.next
+            t.next = n
+        else:
+            self.head = n
+        self.length += 1
 
     def status(self):
         """
         It prints all the elements of list.
         """
-        # write code here
+        status_list = []
+        if self.head != None:
+            t = self.head
+            while t:
+                status_list.append(t.data)
+                t = t.next
+            print(status_list)
 
 
 class Solution:
     """
     Provide necessary documentation
     """
-    def addTwoNumbers(self, first_list: Optional[LinkedList], second_list: Optional[LinkedList]) -> Optional[LinkedList]:
-        """
-        :param first_list: Linkedlist with non-negative integers
-        :param second_list: Linkedlist with non-negative integers
-        :return: returns the sum as a linked list
-        """
-        # Write code here
-        
-        
 
-# Do not edit the following code      
+    def addTwoNumbers(self, first_list: Optional[LinkedList], second_list: Optional[LinkedList]) -> Optional[LinkedList]:
+        self.num1 = self.convert_ll_to_int(first_list)
+        self.num2 = self.convert_ll_to_int(second_list)
+        num3 = self.num1 + self.num2
+        self.return_ll = LinkedList()
+        self.convert_int_to_ll(
+            num3, max(first_list.length, second_list.length))
+        return self.return_ll
+
+    def convert_ll_to_int(self, linked: Optional[LinkedList]):
+        num = 0
+        if linked.head != None:
+            t = linked.head
+            while t:
+                num = num*10 + t.data
+                t = t.next
+        # print(num)
+        return num
+
+    def convert_int_to_ll(self, num, length):
+        list1 = []
+        while num != 0:
+            list1.append(num % 10)
+            num //= 10
+        list1.reverse()
+        list1 = list1[:length]
+        for i in list1:
+            self.return_ll.insert_at_end(i)
+
+
+# Do not edit the following code
 # Create an instance for LinkedList
 first_list = LinkedList()
 # Create an another instance for LinkedList
